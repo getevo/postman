@@ -36,11 +36,13 @@ func (c *Collection) SetVariable(key, value, description string) {
 	c.Variable = append(c.Variable, Variable{Key: key, Value: value, Description: description})
 }
 
-func (c *Collection) AddFolder(name, description string) {
-	c.Item = append(c.Item, Item{
+func (c *Collection) CreateFolder(name, description string) *Item {
+	var item = Item{
 		Name:        name,
 		Description: description,
-	})
+	}
+	c.Item = append(c.Item, item)
+	return &item
 }
 
 func (c *Collection) AddAPI(item Item) {
@@ -62,19 +64,22 @@ type Item struct {
 	Variable                []Variable               `json:"variable,omitempty"`
 }
 
-func (c *Item) AppendItem(item Item) {
+func (c *Item) AppendItem(item Item) *Item {
 	c.Item = append(c.Item, item)
+	return &item
 }
 
 func (c *Item) SetVariable(key, value, description string) {
 	c.Variable = append(c.Variable, Variable{Key: key, Value: value, Description: description})
 }
 
-func (c *Item) AddFolder(name, description string) {
-	c.Item = append(c.Item, Item{
+func (c *Item) CreateFolder(name, description string) *Item {
+	var item = Item{
 		Name:        name,
 		Description: description,
-	})
+	}
+	c.Item = append(c.Item, item)
+	return &item
 }
 
 type Request struct {

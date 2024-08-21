@@ -57,20 +57,20 @@ type Item struct {
 	Name                    string                   `json:"name"`
 	Description             string                   `json:"description,omitempty"`
 	Request                 *Request                 `json:"request,omitempty"`
-	Response                []Response               `json:"response,omitempty"`
+	Response                []*Response              `json:"response,omitempty"`
 	ProtocolProfileBehavior *ProtocolProfileBehavior `json:"protocolProfileBehavior,omitempty"`
-	Item                    []Item                   `json:"item,omitempty"` // Nested items for folders
-	Event                   []Event                  `json:"event,omitempty"`
-	Variable                []Variable               `json:"variable,omitempty"`
+	Item                    []*Item                  `json:"item,omitempty"` // Nested items for folders
+	Event                   []*Event                 `json:"event,omitempty"`
+	Variable                []*Variable              `json:"variable,omitempty"`
 }
 
 func (c *Item) AppendItem(item Item) *Item {
-	c.Item = append(c.Item, item)
+	c.Item = append(c.Item, &item)
 	return &item
 }
 
 func (c *Item) SetVariable(key, value, description string) {
-	c.Variable = append(c.Variable, Variable{Key: key, Value: value, Description: description})
+	c.Variable = append(c.Variable, &Variable{Key: key, Value: value, Description: description})
 }
 
 func (c *Item) CreateFolder(name, description string) *Item {
@@ -78,7 +78,7 @@ func (c *Item) CreateFolder(name, description string) *Item {
 		Name:        name,
 		Description: description,
 	}
-	c.Item = append(c.Item, item)
+	c.Item = append(c.Item, &item)
 	return &item
 }
 

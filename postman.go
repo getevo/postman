@@ -83,11 +83,12 @@ func (c *Item) CreateFolder(name, description string) *Item {
 }
 
 type Request struct {
-	Method string   `json:"method"`
-	Header []Header `json:"header,omitempty"`
-	Body   *Body    `json:"body,omitempty"`
-	Url    *Url     `json:"url,omitempty"`
-	Auth   *Auth    `json:"auth,omitempty"`
+	Method      string   `json:"method"`
+	Header      []Header `json:"header,omitempty"`
+	Body        *Body    `json:"body,omitempty"`
+	Url         *Url     `json:"url,omitempty"`
+	Auth        *Auth    `json:"auth,omitempty"`
+	Description string   `json:"description,omitempty"`
 }
 
 type Header struct {
@@ -103,6 +104,10 @@ type Url struct {
 	Path     []string   `json:"path,omitempty"`
 	Query    []KeyValue `json:"query,omitempty"`
 	Hash     string     `json:"hash,omitempty"`
+}
+
+func (u *Url) AddQuery(key, value, description string) {
+	u.Query = append(u.Query, KeyValue{Key: key, Value: value, Description: description})
 }
 
 type Event struct {

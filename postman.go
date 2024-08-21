@@ -3,11 +3,11 @@ package postman
 import "encoding/json"
 
 type Collection struct {
-	Info     Info       `json:"info"`
-	Item     []Item     `json:"item"`
-	Auth     *Auth      `json:"auth,omitempty"`
-	Event    []Event    `json:"event,omitempty"`
-	Variable []Variable `json:"variable,omitempty"`
+	Info     Info        `json:"info"`
+	Item     []*Item     `json:"item"`
+	Auth     *Auth       `json:"auth,omitempty"`
+	Event    []*Event    `json:"event,omitempty"`
+	Variable []*Variable `json:"variable,omitempty"`
 }
 
 func NewCollection(name string, description string) *Collection {
@@ -17,7 +17,7 @@ func NewCollection(name string, description string) *Collection {
 			Description: description,
 			Schema:      "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		},
-		Item: []Item{},
+		Item: []*Item{},
 	}
 }
 
@@ -29,11 +29,11 @@ type Info struct {
 }
 
 func (c *Collection) AppendItem(item Item) {
-	c.Item = append(c.Item, item)
+	c.Item = append(c.Item, &item)
 }
 
 func (c *Collection) SetVariable(key, value, description string) {
-	c.Variable = append(c.Variable, Variable{Key: key, Value: value, Description: description})
+	c.Variable = append(c.Variable, &Variable{Key: key, Value: value, Description: description})
 }
 
 func (c *Collection) CreateFolder(name, description string) *Item {
@@ -41,12 +41,12 @@ func (c *Collection) CreateFolder(name, description string) *Item {
 		Name:        name,
 		Description: description,
 	}
-	c.Item = append(c.Item, item)
+	c.Item = append(c.Item, &item)
 	return &item
 }
 
 func (c *Collection) AddAPI(item Item) {
-	c.Item = append(c.Item, item)
+	c.Item = append(c.Item, &item)
 }
 
 func (c *Collection) ToJson() ([]byte, error) {

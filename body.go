@@ -36,6 +36,7 @@ type KeyValue struct {
 	Value       string `json:"value"`
 	Description string `json:"description,omitempty"`
 	Type        string `json:"type,omitempty"`
+	Disabled    bool   `json:"disabled"`
 }
 
 type File struct {

@@ -106,8 +106,8 @@ type Url struct {
 	Hash     string     `json:"hash,omitempty"`
 }
 
-func (u *Url) AddQuery(key, value, description string) {
-	u.Query = append(u.Query, KeyValue{Key: key, Value: value, Description: description})
+func (u *Url) AddQuery(key, value, description string,disabled ...bool) {
+	u.Query = append(u.Query, KeyValue{Key: key, Value: value, Description: description,Disabled:disabled})
 }
 
 type Event struct {
